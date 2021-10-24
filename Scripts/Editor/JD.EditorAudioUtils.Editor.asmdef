@@ -1,0 +1,18 @@
+{
+    "name": "JD.EditorAudioUtils.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fcf4fc281d895334da97cd1cd2603d83"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
