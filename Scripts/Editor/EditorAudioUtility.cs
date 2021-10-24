@@ -21,9 +21,12 @@ namespace JD.EditorAudioUtils
 		private static MethodInfo _playClipMethod;
 		private static object[] _callParameters;
 		
-		public static void PlaySound(EditorSoundType type)
+		public static void PlayNotificationSound(EditorNotificationSound type)
 		{
-			PlayAudioClip(EditorAudioSettings.Instance.GetAudioClip(type));
+			if (EditorNotificationSettings.NotificationSoundsEnabled)
+			{
+				PlayAudioClip(EditorNotificationSettings.Instance.GetAudioClip(type));
+			}
 		}
 
 		public static void PlayAudioClip(AudioClip audioClip)

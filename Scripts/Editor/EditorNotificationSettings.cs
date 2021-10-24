@@ -14,17 +14,18 @@ using UnityEngine.Profiling;
 
 namespace JD.EditorAudioUtils
 {
-	public enum EditorSoundType
+	public enum EditorNotificationSound
 	{
 		Success,
 		Warning,
 		Error,
-		Info,
-		Notification
+		Info
 	}
 	
-	public class EditorAudioSettings : ScriptableObject
+	public class EditorNotificationSettings : ScriptableObject
 	{
+		public static readonly string SoundsEnabledEditorPrefKey = "EditorAudioUtils.NotificationSoundsEnabled";
+		
 		[SerializeField]
 		[PreviewAudioClip]
 		private AudioClip _successSound = null;
@@ -40,22 +41,22 @@ namespace JD.EditorAudioUtils
 		[SerializeField]
 		[PreviewAudioClip]
 		private AudioClip _infoSound = null;
-		
+
+		[Tooltip("Default value for others opening the settings for the first time")]
 		[SerializeField]
-		[PreviewAudioClip]
-		private AudioClip _notificationSound = null;
+		public bool SoundsEnabledDefaultValue = true;
 
-		private static EditorAudioSettings _instance = null;
+		private static EditorNotificationSettings _instance = null;
 
-		public static EditorAudioSettings Instance
+		public static EditorNotificationSettings Instance
 		{
 			get
 			{
 				if (_instance == null)
 				{
-					Profiler.BeginSample($"GetScriptableSingletonInstance {typeof(EditorAudioSettings).FullName}");
-					_instance = EditorUtilities.FindOrCreateEditorAsset<EditorAudioSettings>("EditorAudioUtils",
-						$"{nameof(EditorAudioSettings)}.asset", true);
+					Profiler.BeginSample($"GetScriptableSingletonInstance {typeof(EditorNotificationSettings).FullName}");
+					_instance = EditorUtilities.FindOrCreateEditorAsset<EditorNotificationSettings>("EditorAudioUtils",
+						$"{nameof(EditorNotificationSettings)}.asset", true);
 					Profiler.EndSample();
 				}
 
@@ -63,20 +64,24 @@ namespace JD.EditorAudioUtils
 			}
 		}
 
-		public AudioClip GetAudioClip(EditorSoundType type)
+		public static bool NotificationSoundsEnabled
+		{
+			get => UnityEditor.EditorPrefs.GetBool(SoundsEnabledEditorPrefKey, Instance.SoundsEnabledDefaultValue);
+			set => UnityEditor.EditorPrefs.SetBool(SoundsEnabledEditorPrefKey, value);
+		}
+
+		public AudioClip GetAudioClip(EditorNotificationSound type)
 		{
 			switch (type)
 			{
-				case EditorSoundType.Success:
+				case EditorNotificationSound.Success:
 					return _successSound;
-				case EditorSoundType.Warning:
+				case EditorNotificationSound.Warning:
 					return _warningSound;
-				case EditorSoundType.Error:
+				case EditorNotificationSound.Error:
 					return _errorSound;
-				case EditorSoundType.Info:
+				case EditorNotificationSound.Info:
 					return _infoSound;
-				case EditorSoundType.Notification:
-					return _notificationSound;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}

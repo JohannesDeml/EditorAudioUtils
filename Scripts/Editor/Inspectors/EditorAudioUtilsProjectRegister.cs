@@ -18,22 +18,34 @@ namespace JD.EditorAudioUtils
 		[SettingsProvider]
 		public static SettingsProvider CreateSettingsProvider()
 		{
-			// First parameter is the path in the Settings window.
-			// Second parameter is the scope of this setting: it only appears in the Project Settings window.
 			var provider = new SettingsProvider("Project/EditorAudioUtils", SettingsScope.Project)
 			{
-				// By default the last token of the path is used as display name if no label is provided.
 				label = "EditorAudioUtils",
-				// Create the SettingsProvider and initialize its drawing (IMGUI) function in place:
 				guiHandler = (searchContext) =>
 				{
-					var settings = EditorAudioSettings.Instance;
+					// Draw project settings
+					EditorGUILayout.LabelField("Project Settings", EditorStyles.boldLabel);
+					var settings = EditorNotificationSettings.Instance;
 					var editor = Editor.CreateEditor(settings);
 					editor.OnInspectorGUI();
+					EditorGUILayout.Space();
+					
+					// Draw user specific settings
+					bool soundsEnabled = EditorNotificationSettings.NotificationSoundsEnabled;
+					EditorGUI.BeginChangeCheck();
+					EditorGUILayout.LabelField("User Settings", EditorStyles.boldLabel);
+					soundsEnabled = EditorGUILayout.Toggle("Enable notification sounds", soundsEnabled);
+					if (EditorGUI.EndChangeCheck())
+					{
+						EditorNotificationSettings.NotificationSoundsEnabled = soundsEnabled;
+						// only plays when sounds are enabled
+						EditorAudioUtility.PlayNotificationSound(EditorNotificationSound.Success);
+					}
 				},
 
 				// Populate the search keywords to enable smart search filtering and label highlighting:
-				keywords = new HashSet<string>(new[] { "Editor", "Audio", "Sound", "SFX", "Notifications" })
+				keywords = new HashSet<string>(new[] { "Editor", "Audio", "Sound", "Notifications", 
+					"Success Sound", "Warning Sound", "Error Sound", "Info Sound", "Enable Notification Sounds" })
 			};
 
 			return provider;

@@ -16,7 +16,7 @@ namespace JD.EditorAudioUtils
 	public class PreviewAudioClipAttribute : PropertyAttribute
 	{
 		/// <summary>
-		/// Add a draggable icon at front and a goto arrow at the back of a ScriptableObject reference.
+		/// Add a preview button to preview an audio clip
 		/// </summary>
 		public PreviewAudioClipAttribute()
 		{
