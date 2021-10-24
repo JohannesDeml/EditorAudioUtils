@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef030777cd7c124290cb3e0ce4ceb7c, type: 3}
+  m_Name: EditorNotificationSettings
+  m_EditorClassIdentifier: 
+  SoundsEnabledDefaultValue: 1
+  _successSound: {fileID: 8300000, guid: 36b04ecc6988fe942ad24068ea5898a3, type: 3}
+  _warningSound: {fileID: 8300000, guid: 7f1537a8ceb3efc48b3548dc479ccebc, type: 3}
+  _errorSound: {fileID: 8300000, guid: 6ef5d28dc91d9774f9f6d36d82d8a176, type: 3}
+  _infoSound: {fileID: 8300000, guid: f3eab0d845e4a0a4c9a87e9e41eda900, type: 3}
