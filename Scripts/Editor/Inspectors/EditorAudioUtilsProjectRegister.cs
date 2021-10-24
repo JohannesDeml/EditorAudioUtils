@@ -15,6 +15,10 @@ namespace JD.EditorAudioUtils
 {
 	public static class EditorAudioUtilsProjectRegister
 	{
+		/// <summary>
+		/// Add project settings tab for EditorAudioUtils
+		/// </summary>
+		/// <returns></returns>
 		[SettingsProvider]
 		public static SettingsProvider CreateSettingsProvider()
 		{

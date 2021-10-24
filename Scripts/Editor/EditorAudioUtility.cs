@@ -15,6 +15,10 @@ using UnityEngine;
 
 namespace JD.EditorAudioUtils
 {
+	/// <summary>
+	/// Interface to play AudioClips and Notification sounds in the editor
+	/// See also https://forum.unity.com/threads/way-to-play-audio-in-editor-using-an-editor-script.132042/
+	/// </summary>
 	public static class EditorAudioUtility
 	{
 		private static bool _initialized;

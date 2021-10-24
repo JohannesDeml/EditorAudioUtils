@@ -22,6 +22,10 @@ namespace JD.EditorAudioUtils
 		Info
 	}
 	
+	/// <summary>
+	/// Holds the settings for custom notification sounds in the editor
+	/// Those notifications are stored in a singleton and can be easily accessed through ProjectSettings -> EditorAudioUtils
+	/// </summary>
 	public class EditorNotificationSettings : ScriptableObject
 	{
 		public static readonly string SoundsEnabledEditorPrefKey = "EditorAudioUtils.NotificationSoundsEnabled";

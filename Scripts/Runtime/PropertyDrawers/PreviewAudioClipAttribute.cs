@@ -12,12 +12,12 @@ using UnityEngine;
 
 namespace JD.EditorAudioUtils
 {
+	/// <summary>
+	/// Add a preview button to preview an audio clip
+	/// </summary>
 	[System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = true)]
 	public class PreviewAudioClipAttribute : PropertyAttribute
 	{
-		/// <summary>
-		/// Add a preview button to preview an audio clip
-		/// </summary>
 		public PreviewAudioClipAttribute()
 		{
 		}
