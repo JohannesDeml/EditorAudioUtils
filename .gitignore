@@ -1,0 +1,66 @@
+# Unity .gitignore - Deml v2021.2.0
+# Source https://github.com/JohannesDeml/UnityTemplate/
+
+## Unity generated
+/.gradle/**
+/Temp/**
+/Library/**
+/obj/**
+/UserSettings/**
+/Packages/*/**
+/Packages/*.meta
+/Logs/**
+
+# Visual Studio / Rider / MonoDevelop generated
+/ExportedObj/**
+/obj
+/.vs/**
+*.svd
+*.userprefs
+*.csproj
+*.csproj.meta
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+
+*.csproj
+*.cache
+*Resharper*
+*ReSharper*
+*.orig
+*.orig.*
+*sln*
+.idea/**
+/Assets/Plugins/Editor/Jetbrains/*
+/Assets/Plugins/Editor/Jetbrains.meta
+
+*.blend1
+
+# OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+report.xml
+
+# WebGL Publisher
+/WebGL Builds/**
+connectwebgl.zip
+# Optional, but I don't like having my build folder added to this public repo
+ProjectSettings/Packages/com.unity.connect.share/Settings.json
+
+# Custom
+/Builds/**
+/Data/**
+/Recordings/**
+/Assets/_Project/Preferences/Editor/Credentials/**
+/Assets/_Project/Preferences/Editor/Credentials.meta
+/Assets/Temp/**
+/Assets/Temp.meta
+/.sonarqube
