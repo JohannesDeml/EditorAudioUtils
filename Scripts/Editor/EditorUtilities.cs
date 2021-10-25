@@ -35,43 +35,69 @@ namespace JD.EditorAudioUtils
 			}
 
 			string assetDefaultPath = Path.Combine(folderPath, fileName);
-			var asset = EditorGUIUtility.Load(assetDefaultPath) as T;
-			if (asset == null && searchOutsideResources)
+			T asset = null;
+			
+			// Load from direct path
+			if (LoadAssetAtPath(assetDefaultPath, ref asset))
 			{
-				asset = LoadAssetOutsideDefaultFolder<T>(assetDefaultPath);
+				return asset;
 			}
 			
-			if (asset == null)
+			// Load from saved editor pref if exists
+			if (LoadFromEditorPrefsGuid(assetDefaultPath, ref asset))
 			{
-				asset = ScriptableObject.CreateInstance<T>();
-				var assetRelativeFolderPath = "Assets/Editor Default Resources/" + folderPath;
-				// Create folders if not not existent
-				Directory.CreateDirectory(Path.GetFullPath(assetRelativeFolderPath));
-				var assetRelativeFilePath = Path.Combine(assetRelativeFolderPath, fileName);
-				AssetDatabase.CreateAsset(asset, assetRelativeFilePath);
+				return asset;
 			}
-
+			
+			// Search in the project for the asset type
+			if (searchOutsideResources && LoadAssetOutsideDefaultFolder(assetDefaultPath, ref asset))
+			{
+				return asset;
+			}
+			
+			// Create a new asset, since none was found
+			asset = ScriptableObject.CreateInstance<T>();
+			var assetRelativeFolderPath = "Assets/Editor Default Resources/" + folderPath;
+			// Create folders if not not existent
+			Directory.CreateDirectory(Path.GetFullPath(assetRelativeFolderPath));
+			var assetRelativeFilePath = Path.Combine(assetRelativeFolderPath, fileName);
+			AssetDatabase.CreateAsset(asset, assetRelativeFilePath);
+				
+			string guid = AssetDatabase.AssetPathToGUID(assetRelativeFilePath);
+			EditorPrefs.SetString($"EditorSingletonGUID.{assetDefaultPath}", guid);
 			return asset;
 		}
 
-		private static T LoadAssetOutsideDefaultFolder<T>(string assetDefaultPath) where T : ScriptableObject
+		private static bool LoadAssetAtPath<T>(string assetDefaultPath, ref T asset) where T : ScriptableObject
 		{
-			// See if the overwritten path was already cached and has a valid value
-			string overwrittenPath = EditorPrefs.GetString($"SingletonPathOverwrite.{assetDefaultPath}", null);
-			if (overwrittenPath != null)
+			asset = EditorGUIUtility.Load(assetDefaultPath) as T;
+			return asset != null;
+		}
+
+		private static bool LoadFromEditorPrefsGuid<T>(string assetDefaultPath, ref T asset) where T : ScriptableObject
+		{
+			string guid = EditorPrefs.GetString($"EditorSingletonGUID.{assetDefaultPath}", null);
+			if (guid == null)
 			{
-				T asset = AssetDatabase.LoadAssetAtPath<T>(overwrittenPath);
-				if (asset != null)
-				{
-					return asset;
-				}
+				return false;
 			}
 
-			// Search through the whole project
+			var assetPath = AssetDatabase.GUIDToAssetPath(guid);
+			if (string.IsNullOrEmpty(assetPath))
+			{
+				return false;
+			}
+
+			asset = AssetDatabase.LoadAssetAtPath<T>(assetPath);
+			return asset != null;
+		}
+		
+		private static bool LoadAssetOutsideDefaultFolder<T>(string assetDefaultPath, ref T asset) where T : ScriptableObject
+		{
 			var guids = AssetDatabase.FindAssets($"t:{typeof(T).FullName}");
 			if (guids.Length == 0)
 			{
-				return null;
+				return false;
 			}
 			
 			if (guids.Length > 1)
@@ -85,10 +111,11 @@ namespace JD.EditorAudioUtils
 				}
 			}
 
-			var pathToFirstAsset = AssetDatabase.GUIDToAssetPath(guids[0]);
-			// Save overwritten path
-			EditorPrefs.SetString($"SingletonPathOverwrite.{assetDefaultPath}", pathToFirstAsset);
-			return AssetDatabase.LoadAssetAtPath<T>(pathToFirstAsset);
+			string foundGuid = guids[0];
+			// Save found guid
+			EditorPrefs.SetString($"EditorSingletonGUID.{assetDefaultPath}", foundGuid);
+			asset = AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(foundGuid));
+			return true;
 		}
 	}
 }
