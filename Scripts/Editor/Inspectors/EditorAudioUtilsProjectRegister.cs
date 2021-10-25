@@ -10,6 +10,7 @@
 
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 
 namespace JD.EditorAudioUtils
 {
@@ -27,6 +28,13 @@ namespace JD.EditorAudioUtils
 				label = "EditorAudioUtils",
 				guiHandler = (searchContext) =>
 				{
+					// Draw documentation url
+					if (GUILayout.Button("https://github.com/JohannesDeml/EditorAudioUtils", GUI.skin.label))
+					{
+						Application.OpenURL("https://github.com/JohannesDeml/EditorAudioUtils");
+					}
+					EditorGUILayout.Space();
+					
 					// Draw project settings
 					EditorGUILayout.LabelField("Project Settings", EditorStyles.boldLabel);
 					var settings = EditorNotificationSettings.Instance;
@@ -42,7 +50,7 @@ namespace JD.EditorAudioUtils
 					if (EditorGUI.EndChangeCheck())
 					{
 						EditorNotificationSettings.NotificationSoundsEnabled = soundsEnabled;
-						// only plays when sounds are enabled
+						// This will only play when notification sounds are enabled
 						EditorAudioUtility.PlayNotificationSound(EditorNotificationSound.Success);
 					}
 				},
