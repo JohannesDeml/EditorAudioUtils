@@ -19,19 +19,31 @@ or download the [Latest Unity Packages](../../releases/latest)
 
 * Set your own notification sounds through Project Settings -> EditorAudioUtils
 * Play custom notification sounds through a simple API
-* Play any AudioClip in the editor without the need of an AudioSource
+* Play, Pause, Resume and stop any AudioClip in the editor without the need of an AudioSource
+* Handle different internal Unity API from Unity 2019 onwards
 * Disable notification sounds through EditorPrefs (therefore, each user can decide if they want the sounds or not)
 
 ## API
 
-Play a predefined sound:
+Play a predefined notification sound:
 ```csharp
 EditorAudioUtility.PlayNotificationSound(EditorNotificationSound type);
 ```
 
-Play any AudioClip in the editor:
+Access other internal [AudioUtil](https://github.com/Unity-Technologies/UnityCsReference/blob/master/Editor/Mono/Audio/Bindings/AudioUtil.bindings.cs) methods:
 ```csharp
-EditorAudioUtility.PlayAudioClip(AudioClip audioClip);
+// Play clip
+EditorAudioUtility.PlayPreviewClip(AudioClip audioClip);
+EditorAudioUtility.PlayPreviewClip(AudioClip audioClip, int startSample, bool loop);
+
+// For Unity 2020+ the input will be ignored and applied to all clips
+// You can use EditorAudioUtility.LastPlayedPreviewClip to get the last clip
+EditorAudioUtility.PausePreviewClip(AudioClip audioClip);
+EditorAudioUtility.ResumePreviewClip(AudioClip audioClip);
+EditorAudioUtility.StopPreviewClip(AudioClip audioClip);
+
+// Stop all clips
+EditorAudioUtility.StopAllPreviewClips();
 ```
 
 
