@@ -30,7 +30,7 @@ Play a predefined notification sound:
 EditorAudioUtility.PlayNotificationSound(EditorNotificationSound type);
 ```
 
-Access other internal [AudioUtil](https://github.com/Unity-Technologies/UnityCsReference/blob/master/Editor/Mono/Audio/Bindings/AudioUtil.bindings.cs) methods ([EditorAudioUtility](../../main/Scripts/Editor/EditorAudioUtility.cs)):
+Access other internal [AudioUtil](https://github.com/Unity-Technologies/UnityCsReference/blob/master/Editor/Mono/Audio/Bindings/AudioUtil.bindings.cs) methods ([EditorAudioUtility](../../blob/main/Scripts/Editor/EditorAudioUtility.cs)):
 ```csharp
 // Play clip
 EditorAudioUtility.PlayPreviewClip(AudioClip audioClip);
@@ -49,6 +49,6 @@ EditorAudioUtility.StopAllPreviewClips();
 
 ## License
 
-* MIT - see [LICENSE](./LICENSE.md)
+* MIT - see [LICENSE](./LICENSE)
 * Sounds in Sample are from [Kenney](https://kenney.nl/) (CC0)
 
