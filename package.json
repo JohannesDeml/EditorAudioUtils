@@ -2,7 +2,7 @@
 	"name": "com.jd.editoraudioutils",
 	"author": "Johannes Deml",
 	"displayName": "EditorAudioUtils",
-	"description": "Like EditorApplication.Beep(), but with configurable sounds. This package comes with some predefined types that you can configure in the project settings and then call via EditorAudioUtility.PlaySound().",
+	"description": "Customizable Unity Editor notification sounds - Like EditorApplication.Beep() but configurable. This package comes with some predefined types that you can configure in the project settings and then call via EditorAudioUtility.PlaySound(). The notification sounds can also be disabled/overwritten by a per user basis",
 		
 	"keywords": [
 		"EditorAudioUtils",
@@ -13,7 +13,7 @@
 	],
 	"license": "MIT",
 	"category": "Utility",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"unity": "2019.1",
 	"dependencies": {
 		
