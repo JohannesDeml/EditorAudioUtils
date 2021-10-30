@@ -38,7 +38,13 @@ namespace JD.EditorAudioUtils
 		{
 			if (EditorNotificationSettings.NotificationSoundsEnabled)
 			{
-				PlayPreviewClip(EditorNotificationSettings.Instance.GetAudioClip(type));
+				AudioClip clip = EditorNotificationSettings.Instance.GetAudioClip(type);
+				
+				// Don't play a clip, if it is not set
+				if (clip != null)
+				{
+					PlayPreviewClip(clip);
+				}
 			}
 		}
 

@@ -40,13 +40,11 @@ namespace JD.EditorAudioUtils
 					var settings = EditorNotificationSettings.Instance;
 					var editor = Editor.CreateEditor(settings);
 					editor.OnInspectorGUI();
-					EditorGUILayout.Space();
-					
+
 					// Draw user specific settings
 					bool soundsEnabled = EditorNotificationSettings.NotificationSoundsEnabled;
 					EditorGUI.BeginChangeCheck();
-					EditorGUILayout.LabelField("User Settings", EditorStyles.boldLabel);
-					soundsEnabled = EditorGUILayout.Toggle("Enable notification sounds", soundsEnabled);
+					soundsEnabled = EditorGUILayout.Toggle("Enable Notification Sounds", soundsEnabled);
 					if (EditorGUI.EndChangeCheck())
 					{
 						EditorNotificationSettings.NotificationSoundsEnabled = soundsEnabled;

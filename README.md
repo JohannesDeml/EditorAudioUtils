@@ -21,7 +21,7 @@ or download the [Latest Unity Packages](../../releases/latest)
 * Play custom notification sounds through a simple API
 * Play, Pause, Resume and stop any AudioClip in the editor without the need of an AudioSource
 * Handle different internal Unity API from Unity 2019 onwards
-* Disable notification sounds through EditorPrefs (therefore, each user can decide if they want the sounds or not)
+* Disable or overwrite notification sounds through EditorPrefs. This way each user can decide if and what notification settings they want, while the project itself contains the default settings.
 
 ## API
 
@@ -30,7 +30,7 @@ Play a predefined notification sound:
 EditorAudioUtility.PlayNotificationSound(EditorNotificationSound type);
 ```
 
-Access other internal [AudioUtil](https://github.com/Unity-Technologies/UnityCsReference/blob/master/Editor/Mono/Audio/Bindings/AudioUtil.bindings.cs) methods:
+Access other internal [AudioUtil](https://github.com/Unity-Technologies/UnityCsReference/blob/master/Editor/Mono/Audio/Bindings/AudioUtil.bindings.cs) methods ([EditorAudioUtility](../../main/Scripts/Editor/EditorAudioUtility.cs)):
 ```csharp
 // Play clip
 EditorAudioUtility.PlayPreviewClip(AudioClip audioClip);
@@ -50,5 +50,5 @@ EditorAudioUtility.StopAllPreviewClips();
 ## License
 
 * MIT - see [LICENSE](./LICENSE.md)
-* Sounds in Sample are from [Kenneys Assets](https://kenney.nl/) (CC0)
+* Sounds in Sample are from [Kenney](https://kenney.nl/) (CC0)
 
