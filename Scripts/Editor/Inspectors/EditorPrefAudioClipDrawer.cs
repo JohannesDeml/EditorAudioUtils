@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PreviewAudioClipAttributeDrawer.cs">
+// <copyright file="EditorPrefAudioClipDrawer.cs">
 //   Copyright (c) 2021 Johannes Deml. All rights reserved.
 // </copyright>
 // <author>
@@ -14,27 +14,37 @@ using UnityEngine;
 namespace JD.EditorAudioUtils
 {
 	/// <summary>
-	/// Draws an audio clip field with an EditorAudioButton to preview it
+	/// Draws the EditorPref with hiding its EditorPref key and acting as if it was just a normal object field
 	/// </summary>
-	[CustomPropertyDrawer(typeof(PreviewAudioClipAttribute))]
-	public class PreviewAudioClipAttributeDrawer : PropertyDrawer
+	[CustomPropertyDrawer(typeof(EditorPrefAudioClip))]
+	public class EditorPrefAudioClipDrawer : PropertyDrawer
 	{
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
-			if (property.propertyType != SerializedPropertyType.ObjectReference)
+			var audioPrefObject = EditorUtilities.GetFieldOrPropertyValue<EditorPrefAudioClip>(
+				property.name, property.serializedObject.targetObject);
+
+			if (audioPrefObject == null)
 			{
 				EditorGUI.PropertyField(position, property, label);
 				return;
 			}
 
-			AudioClip audioObject = property.objectReferenceValue as AudioClip;
+			AudioClip audioClip = audioPrefObject.Object;
 			position.width -= EditorAudioButton.Styles.ButtonWidth + EditorAudioButton.Styles.Padding;
-			EditorGUI.PropertyField(position, property, label);
+
+			EditorGUI.BeginChangeCheck();
+			audioClip = EditorGUI.ObjectField(position, label, audioClip, typeof(AudioClip), false) as AudioClip;
+			if (EditorGUI.EndChangeCheck())
+			{
+				audioPrefObject.Object = audioClip;
+			}
+
 			position.x += position.width + EditorAudioButton.Styles.Padding;
 			position.width = EditorAudioButton.Styles.ButtonWidth;
-			
-			EditorGUI.BeginDisabledGroup(audioObject == null);
-			EditorAudioButton.DrawAudioButton(position, audioObject);
+
+			EditorGUI.BeginDisabledGroup(audioClip == null);
+			EditorAudioButton.DrawAudioButton(position, audioClip);
 			EditorGUI.EndDisabledGroup();
 		}
 	}

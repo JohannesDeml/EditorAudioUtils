@@ -9,6 +9,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.IO;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -116,6 +117,18 @@ namespace JD.EditorAudioUtils
 			EditorPrefs.SetString($"EditorSingletonGUID.{assetDefaultPath}", foundGuid);
 			asset = AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(foundGuid));
 			return true;
+		}
+		
+		public static T GetFieldOrPropertyValue<T>(string fieldName, object obj,
+			BindingFlags bindings = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+		{
+			FieldInfo field = obj.GetType().GetField(fieldName, bindings);
+			if (field != null) return (T)field.GetValue(obj);
+
+			PropertyInfo property = obj.GetType().GetProperty(fieldName, bindings);
+			if (property != null) return (T)property.GetValue(obj, null);
+
+			return default(T);
 		}
 	}
 }
