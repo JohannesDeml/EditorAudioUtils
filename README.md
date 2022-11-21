@@ -27,7 +27,10 @@ or download the [Latest Unity Packages](../../releases/latest)
 
 Play a predefined notification sound:
 ```csharp
+// This is the simplest call to play a notification
 EditorAudioUtility.PlayNotificationSound(EditorNotificationSound type);
+// Delayed might be necessary if the sound should be played after a resource intense task
+EditorAudioUtility.PlayNotificationSoundDelayed(EditorNotificationSound type, float secondsDelay);
 ```
 
 Access other internal [AudioUtil](https://github.com/Unity-Technologies/UnityCsReference/blob/master/Editor/Mono/Audio/Bindings/AudioUtil.bindings.cs) methods ([EditorAudioUtility](../../blob/main/Scripts/Editor/EditorAudioUtility.cs)):

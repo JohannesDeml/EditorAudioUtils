@@ -9,7 +9,9 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections;
 using System.Reflection;
+using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -46,6 +48,23 @@ namespace JD.EditorAudioUtils
 					PlayPreviewClip(clip);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Play a predefined notification sound after a predefined time
+		/// </summary>
+		/// <param name="type">Type of the sound to play</param>
+		/// <param name="secondsDelay">Seconds until the sound should be played</param>
+		public static void PlayNotificationSoundDelayed(EditorNotificationSound type, float secondsDelay)
+		{
+			IEnumerator DelayedCoroutine()
+			{
+				yield return new EditorWaitForSeconds(secondsDelay);
+				PlayNotificationSound(type);
+			}
+
+			object obj = new object();
+			EditorCoroutineUtility.StartCoroutine(DelayedCoroutine(), obj);
 		}
 
 		/// <summary>

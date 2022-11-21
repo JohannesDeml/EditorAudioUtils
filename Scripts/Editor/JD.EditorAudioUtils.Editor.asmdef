@@ -2,7 +2,8 @@
     "name": "JD.EditorAudioUtils.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:fcf4fc281d895334da97cd1cd2603d83"
+        "GUID:fcf4fc281d895334da97cd1cd2603d83",
+        "GUID:478a2357cc57436488a56e564b08d223"
     ],
     "includePlatforms": [
         "Editor"
