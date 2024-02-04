@@ -19,7 +19,11 @@ namespace JD.EditorAudioUtils
 		Success,
 		Warning,
 		Error,
-		Info
+		Info,
+		CompileSuccess,
+		CompileError,
+		BuildSuccess,
+		BuildError,
 	}
 	
 	/// <summary>
@@ -51,6 +55,26 @@ namespace JD.EditorAudioUtils
 		[PreviewAudioClip]
 		private AudioClip _infoSound = null;
 		
+		[Tooltip("Default value for successful compilation sound if not overwritten by the user")]
+		[SerializeField]
+		[PreviewAudioClip]
+		private AudioClip _compileSuccess = null;
+		
+		[Tooltip("Default value for failed compilation sound if not overwritten by the user")]
+		[SerializeField]
+		[PreviewAudioClip]
+		private AudioClip _compileError = null;
+		
+		[Tooltip("Default value for successful build sound if not overwritten by the user")]
+		[SerializeField]
+		[PreviewAudioClip]
+		private AudioClip _buildSuccess = null;
+		
+		[Tooltip("Default value for failed build sound if not overwritten by the user")]
+		[SerializeField]
+		[PreviewAudioClip]
+		private AudioClip _buildError = null;
+		
 		[Tooltip("Default value for notification sounds being enabled if not overwritten by the user")]
 		[SerializeField]
 		private bool _enableNotificationSounds = true;
@@ -68,6 +92,18 @@ namespace JD.EditorAudioUtils
 		
 		[SerializeField]
 		private EditorPrefAudioClip _userInfoSound = new EditorPrefAudioClip("EditorAudioUtils.UserInfoSound");
+		
+		[SerializeField]
+		private EditorPrefAudioClip _userCompileSuccessSound = new EditorPrefAudioClip("EditorAudioUtils.UserCompileSuccessSound");
+		
+		[SerializeField]
+		private EditorPrefAudioClip _userCompileErrorSound = new EditorPrefAudioClip("EditorAudioUtils.UserCompileErrorSound");
+				
+		[SerializeField]
+		private EditorPrefAudioClip _userBuildSuccessSound = new EditorPrefAudioClip("EditorAudioUtils.UserBuildSuccessSound");
+		
+		[SerializeField]
+		private EditorPrefAudioClip _userBuildErrorSound = new EditorPrefAudioClip("EditorAudioUtils.UserBuildErrorSound");
 		
 		private static EditorNotificationSettings _instance = null;
 
@@ -105,6 +141,14 @@ namespace JD.EditorAudioUtils
 					return _userErrorSound.Clip != null ? _userErrorSound.Clip : _errorSound;
 				case EditorNotificationSound.Info:
 					return _userInfoSound.Clip != null ? _userInfoSound.Clip : _infoSound;
+				case EditorNotificationSound.CompileSuccess:
+					return _userCompileSuccessSound.Clip != null ? _userCompileSuccessSound.Clip : _compileSuccess;
+				case EditorNotificationSound.CompileError:
+					return _userCompileErrorSound.Clip != null ? _userCompileErrorSound.Clip : _compileError;
+				case EditorNotificationSound.BuildSuccess:
+					return _userBuildSuccessSound.Clip != null ? _userBuildSuccessSound.Clip : _buildSuccess;
+				case EditorNotificationSound.BuildError:
+					return _userBuildErrorSound.Clip != null ? _userBuildErrorSound.Clip : _buildError;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}

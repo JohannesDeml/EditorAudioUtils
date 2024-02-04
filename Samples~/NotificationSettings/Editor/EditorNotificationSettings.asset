@@ -16,6 +16,10 @@ MonoBehaviour:
   _warningSound: {fileID: 8300000, guid: 7f1537a8ceb3efc48b3548dc479ccebc, type: 3}
   _errorSound: {fileID: 8300000, guid: 6ef5d28dc91d9774f9f6d36d82d8a176, type: 3}
   _infoSound: {fileID: 8300000, guid: f3eab0d845e4a0a4c9a87e9e41eda900, type: 3}
+  _compileSuccess: {fileID: 8300000, guid: 50ad138022f0c844891f14aca1ce1570, type: 3}
+  _compileError: {fileID: 8300000, guid: ced432b55f867134ebcb566ca5e8618f, type: 3}
+  _buildSuccess: {fileID: 8300000, guid: 36b04ecc6988fe942ad24068ea5898a3, type: 3}
+  _buildError: {fileID: 8300000, guid: 6ef5d28dc91d9774f9f6d36d82d8a176, type: 3}
   _enableNotificationSounds: 1
   _userSuccessSound:
     _editorKey: EditorAudioUtils.UserSuccessSound
@@ -25,3 +29,11 @@ MonoBehaviour:
     _editorKey: EditorAudioUtils.UserErrorSound
   _userInfoSound:
     _editorKey: EditorAudioUtils.UserInfoSound
+  _userCompileSuccessSound:
+    _editorKey: EditorAudioUtils.UserCompileSuccessSound
+  _userCompileErrorSound:
+    _editorKey: EditorAudioUtils.UserCompileErrorSound
+  _userBuildSuccessSound:
+    _editorKey: EditorAudioUtils.UserBuildSuccessSound
+  _userBuildErrorSound:
+    _editorKey: EditorAudioUtils.UserBuildErrorSound
