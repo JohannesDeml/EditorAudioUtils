@@ -16,6 +16,8 @@ namespace JD.EditorAudioUtils
 {
 	public static class EditorAudioUtilsProjectRegister
 	{
+		private static Editor _settingsEditor;
+		
 		/// <summary>
 		/// Add project settings tab for EditorAudioUtils
 		/// </summary>
@@ -34,12 +36,17 @@ namespace JD.EditorAudioUtils
 						Application.OpenURL("https://github.com/JohannesDeml/EditorAudioUtils");
 					}
 					EditorGUILayout.Space();
-					
-					// Draw project settings
+
 					EditorGUILayout.LabelField("Project Settings", EditorStyles.boldLabel);
-					var settings = EditorNotificationSettings.Instance;
-					var editor = Editor.CreateEditor(settings);
-					editor.OnInspectorGUI();
+					EditorNotificationSettings settings = EditorNotificationSettings.Instance;
+					using (new EditorGUI.DisabledScope(true))
+					{
+						EditorGUILayout.ObjectField("Settings", settings, typeof(EditorNotificationSettings), false);
+					}
+
+					// Draw project settings
+					Editor.CreateCachedEditor(settings, null, ref _settingsEditor);
+					_settingsEditor.OnInspectorGUI();
 
 					// Draw user specific settings
 					bool soundsEnabled = EditorNotificationSettings.NotificationSoundsEnabled;
